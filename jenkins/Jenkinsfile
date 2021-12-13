@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    environment {
+        CREATE_SCHEMA = "true"
+        RUN_APP = "false"
+        DATABASE_URI = credentials("DATABASE_URI")
+    }
+    stages {
+        stage('Setup') {
+            steps {
+                sh "bash jenkins/setup.sh"
+            }
+        }
+        stage('Test') {
+            steps {
+                sh "bash jenkins/test.sh"
+            }
+        }
+        stage('Run') {
+            steps {
+                sh "python3 app.py"
+            }
+        }
+    }
+}
