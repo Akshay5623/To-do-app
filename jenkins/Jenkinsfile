@@ -18,7 +18,12 @@ pipeline {
         }
         stage('Run') {
             steps {
-                sh "python3 app.py"
+                script {
+                    if (env.RUN_APP == "true"){
+                        sh "python3 app.py"
+                    }
+                }
+                
             }
         }
     }
